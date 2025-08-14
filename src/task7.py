@@ -1,6 +1,3 @@
-
-# svm_breast_cancer_full.py
-
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -11,10 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-
-# =======================
-# Step 1: Load dataset
-# =======================
+#Load dataset
 # Using sklearn's built-in breast cancer dataset so I don't have to mess with CSV reading
 # X = features, y = target (0 = malignant, 1 = benign)
 cancer = datasets.load_breast_cancer()
@@ -25,9 +19,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, stratify=y, random_state=0
 )
 
-
-# Step 2: PCA for plotting
-
+#PCA for plotting
 # The dataset has 30 features → I can’t plot 30D space.
 # So using PCA to reduce to 2D, just for visualization purposes.
 pca = PCA(n_components=2)
@@ -36,9 +28,7 @@ X2_train, X2_test, y2_train, y2_test = train_test_split(
     X_2d, y, test_size=0.25, stratify=y, random_state=0
 )
 
-
 # Train SVM (2D)
-
 # Trying both linear and RBF kernels on the 2D PCA data to see decision boundaries
 kernels = ['linear', 'rbf']
 for kernel in kernels:
@@ -50,10 +40,9 @@ for kernel in kernels:
     model.fit(X2_train, y2_train)
     
 
-    # Step 4: Plot boundaries
-
+    #Plot boundaries
     # Create a meshgrid over the plot space
-    h = 0.02  # step size in the grid
+    h = 0.5 # step size in the grid
     x_min, x_max = X2_train[:, 0].min() - 1, X2_train[:, 0].max() + 1
     y_min, y_max = X2_train[:, 1].min() - 1, X2_train[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
@@ -71,9 +60,6 @@ for kernel in kernels:
     plt.xlabel("PC1")
     plt.ylabel("PC2")
     plt.show()
-
-
-
 
 # Now using all features (not PCA) with RBF kernel and tuning C & gamma
 pipe_rbf = Pipeline([
@@ -96,8 +82,7 @@ print("Best RBF parameters:", grid.best_params_)
 print("Best CV accuracy: {:.3f}".format(grid.best_score_))
 
 
-# Step 6: Cross-validation (Linear SVM)
-
+#Cross-validation (Linear SVM)
 # Just to compare, running CV on a linear SVM
 pipe_linear = Pipeline([
     ("scaler", StandardScaler()),
@@ -109,7 +94,7 @@ print("Linear SVM CV Accuracy: {:.3f} ± {:.3f}".format(linear_scores.mean(), li
 # Testing the best RBF model on unseen data
 best_model = grid.best_estimator_
 y_pred = best_model.predict(X_test)
-
 print("RBF SVM Test accuracy: {:.3f}".format(accuracy_score(y_test, y_pred)))
 print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("Classification Report:\n", classification_report(y_test, y_pred, target_names=cancer.target_names))
+
