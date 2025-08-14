@@ -46,7 +46,6 @@ Confusion Matrix:
  
  [ 1 89]]
 
-
 Classification Report:
 
               precision    recall  f1-score   support
@@ -56,12 +55,15 @@ accuracy                            0.96       143
 macro avg       0.96      0.95      0.95       143
 weighted avg    0.96      0.96      0.96       143
 
+
 📈 Decision Boundary Visualizations
 
 Linear Kernel (PCA 2D)
+
 ![Linear Kernel](images/Figure_1.png)
 
 RBF Kernel (PCA 2D)
+
 ![RBF Kernel](images/Figure_2.png)
 
 🚀 How to Run
