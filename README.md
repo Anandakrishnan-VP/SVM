@@ -47,12 +47,12 @@ Confusion Matrix:
  [ 1 89]]
 
 Classification Report:
-          precision    recall  f1-score   support
-malignant 0.98 0.91 0.94 53
-benign 0.95 0.99 0.97 90
-accuracy                           0.96       143
-macro avg 0.96 0.95 0.95 143
-weighted avg 0.96 0.96 0.96 143
+              precision    recall  f1-score   support
+malignant       0.98      0.91      0.94        53
+benign          0.95      0.99      0.97        90
+accuracy                            0.96       143
+macro avg       0.96      0.95      0.95       143
+weighted avg    0.96      0.96      0.96       143
 
 📈 Decision Boundary Visualizations
 
